@@ -15,12 +15,8 @@ public class HomeView extends VerticalLayout {
 
     public HomeView() {
         setSpacing(false);
-        setAlignItems(Alignment.CENTER);
-        H1 company = new H1("Event Ticket");
-        company.getStyle().set("font-family","cursive").set("font-size", "6rem").set("margin", "0");
 
-        H2 subName = new H2("...find the best prices for ur event...");
-        subName.getStyle().set("margin", "0").set("color","gray");
+        VerticalLayout header = getHeader();
 
         Image logo = new Image("images/logoeventticket.png", "EventTicket logo");
         logo.setWidth("500px");
@@ -36,7 +32,20 @@ public class HomeView extends VerticalLayout {
         H3 street = new H3("Spengergasse 20");
         H3 city = new H3("1050 Wien");
 
-        add(company, subName, logo, line1, line2, line3, name, street, city);
+        add(header, logo, line1, line2, line3, name, street, city);
     }
 
+    public static VerticalLayout getHeader(){
+        VerticalLayout header;
+        header = new VerticalLayout();
+
+        H1 company = new H1("Event Ticket");
+        company.getStyle().set("font-family","cursive").set("font-size", "6rem").set("margin", "0");
+
+        H2 subName = new H2("...find the best prices for ur event...");
+        subName.getStyle().set("margin", "0").set("color","gray");
+
+        header.add(company, subName);
+        return header;
+    }
 }

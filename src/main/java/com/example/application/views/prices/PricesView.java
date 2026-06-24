@@ -1,9 +1,13 @@
 package com.example.application.views.prices;
 
+import com.example.application.views.home.HomeView;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Menu;
 import com.vaadin.flow.router.PageTitle;
@@ -18,48 +22,41 @@ public class PricesView extends VerticalLayout {
 
     public PricesView() {
         setSpacing(false);
-        setAlignItems(Alignment.CENTER);
-        H1 company = new H1("Event Ticket");
-        company.getStyle().set("font-family","cursive").set("font-size", "6rem").set("margin", "0");
-
-        H2 subName = new H2("...find the best prices for ur event...");
-        subName.getStyle().set("margin", "0").set("color","gray");
+        VerticalLayout header = HomeView.getHeader();
 
         H2 priceList = new H2("Price list");
         priceList.getStyle().set("margin", "0").set("color","gray");
 
-        H2 eventDistrict1 = new H2("1050 Vienna");
-        Paragraph priceStandard1 = new Paragraph("Price Standard Ticket: 50 eur");
-        Paragraph pricePremium1 = new Paragraph("Price Premium Ticket: 65 eur");
-        Paragraph priceAdministration1 = new Paragraph("Administration preis is always 5 eur pro Ticket!");
+        FlexLayout districts = new FlexLayout();
+        VerticalLayout district1=getCard("1050 Wien", 50,65,5);
+        VerticalLayout district2=getCard("1030 Vienna", 55,70,5);
+        VerticalLayout district3=getCard("1080 Wien", 45,60,4);
+        VerticalLayout district4=getCard("1010 Wien", 65,80,6);
+        VerticalLayout district5=getCard("Rest of Viena", 40,55,3);
+        districts.setWidthFull();
+        districts.setJustifyContentMode(JustifyContentMode.CENTER);
+        districts.setFlexWrap(FlexLayout.FlexWrap.WRAP);
+        districts.add(district1,district2,district3,district4,district5);
 
-        H2 eventDistrict2 = new H2("1030 Vienna");
-        Paragraph priceStandard2 = new Paragraph("Price Standard Ticket: 55 eur");
-        Paragraph pricePremium2 = new Paragraph("Price Premium Ticket: 70 eur");
-        Paragraph priceAdministration2 = new Paragraph("Administration preis is always 5 eur pro Ticket!");
+        Paragraph info = new Paragraph("Taxes included.");
 
-        H2 eventDistrict3 = new H2("1080 Vienna");
-        Paragraph priceStandard3 = new Paragraph("Price Standard Ticket: 45 eur");
-        Paragraph pricePremium3 = new Paragraph("Price Premium Ticket: 60 eur");
-        Paragraph priceAdministration3 = new Paragraph("Administration preis is always 4 eur pro Ticket!");
+        add(header, priceList, districts, info);
+    }
 
-        H2 eventDistrict4 = new H2("1010 Vienna");
-        Paragraph priceStandard4 = new Paragraph("Price Standard Ticket: 65 eur");
-        Paragraph pricePremium4 = new Paragraph("Price Premium Ticket: 80 eur");
-        Paragraph priceAdministration4 = new Paragraph("Administration preis is always 6 eur pro Ticket!");
+    public VerticalLayout getCard(String districtName, double priceStandard, double pricePremium, double priceAdministration) {
+        VerticalLayout district = new VerticalLayout();
+        H2 districtNameH2 = new H2(districtName);
+        Paragraph priceStandardP = new Paragraph("Price Standard Ticket: " + priceStandard + " EUR");
+        Paragraph pricePremiumP = new Paragraph("Price Premium Ticket: " + pricePremium + " EUR");
+        Paragraph priceAdministrationP = new Paragraph("Administration preis is always " + priceAdministration + " eur pro Ticket!");
+        district.add(districtNameH2, priceStandardP, pricePremiumP, priceAdministrationP);
 
-        H2 eventDistrict5 = new H2("Rest of Vienna");
-        Paragraph priceStandard5 = new Paragraph("Price Standard Ticket: 40 eur");
-        Paragraph pricePremium5 = new Paragraph("Price Premium Ticket: 55 eur");
-        Paragraph priceAdministration5 = new Paragraph("Administration preis is always 3 eur pro Ticket!");
+        district.setWidth("350px");
+        district.setPadding(true);
+        district.setSpacing(false);
+        district.getStyle().set("border","1px solid lightgray").set("border-radius", "10px").set("margin", "10px");
 
-        add(company, subName, priceList,
-            eventDistrict1, priceStandard1, pricePremium1, priceAdministration1,
-            eventDistrict2, priceStandard2, pricePremium2, priceAdministration2,
-            eventDistrict3, priceStandard3, pricePremium3, priceAdministration3,
-            eventDistrict4, priceStandard4, pricePremium4, priceAdministration4,
-            eventDistrict5, priceStandard5, pricePremium5, priceAdministration5
-        );
+        return district;
     }
 
 }
