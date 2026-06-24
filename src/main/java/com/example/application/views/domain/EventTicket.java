@@ -64,7 +64,7 @@ public class EventTicket {
         eventTicketId = sequence.getAndIncrement();
     }
 
-    public void setPreis(Double price){
+    public void setPrice(Double price){
         if (price < 30.0)
             throw new EventTicketException("Price is to low");
         if (price > 300.0)
@@ -72,7 +72,7 @@ public class EventTicket {
         this.price = price;
     }
 
-    public void setEventTypes(String eventType){
+    public void setEventType(String eventType){
        if (! Arrays.asList(eventTypes).contains(eventType))
            throw new EventTicketException("Unknown event type");
        this.eventType = eventType;
